@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="Style.css">
+
+      <title><%= My Blog %></title>
+      <header> My First Blog </header>
+  </head>
+<body>
+<ul>
+  <% @posts.each do | post | %>
+  <h1> <%= post |'title'| %></h1>
+
+  <div>
+
+
+  <% end %></ul>
+  <%# Comment %>
+</body>
+</html>
