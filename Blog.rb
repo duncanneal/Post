@@ -1,22 +1,20 @@
 require 'erb'
+require 'webrick'
+require 'yaml'
 
-page_title = "Hello.ERB."
+ROOT = File.dirname(__FILE__)
 
-ice_cream =[
-"Rocky Road",
-"Vanilla",
-"Mint Chocoalte Chip",
-"Moose Tracks",
-"American Dream",
-"Cherry Garcia",
-"Cookie Dough",
-"Reese's Pieces",
-"Neapolitan"
-]
+server = WEBrick::HTTPServer.new(:Port => 8000, :DocumentRoot => "#{ROOT}/public")
 
-template = ERB.new(File.read('index.html.erb'))
-puts template.result #asking result of template-evaluates file and puts it
+server.mount_proc '/blog' do |req, res|
+  @page_title = "Duncan's Blog"
+  @post = YAML.load_file("#{ROOT}/post.yml")
+  template = ERB.new(File.read("#{ROOT}/index.html.erb"))
+  res.body = template.result
+end
 
-File.open('index.html', 'w') do |file| # w = write able
-  file.write template.result
-end  
+trap 'INT' do
+  server.shutdown
+end
+
+server.start

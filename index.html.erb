@@ -1,20 +1,23 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="stylesheet" href="Style.css">
-
-      <title><%= My Blog %></title>
-      <header> My First Blog </header>
+    <link rel="stylesheet" href="style.css">
+    <title><%= @page_title %></title>
   </head>
+  <header> 
+    <h1>Duncan's Blog</h1>
+  </header>
+ 
 <body>
-<ul>
-  <% @posts.each do | post | %>
-  <h1> <%= post |'title'| %></h1>
+  <% @post.each do |post| %>
+<div>
+  <h2><%= post["title"] %> </h2>
+  <img src="<%= post["image"] %>">
+  <p><%= post["body"] %></p>
+</div>
 
-  <div>
+  <% end %>
 
 
-  <% end %></ul>
-  <%# Comment %>
 </body>
 </html>
